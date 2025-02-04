@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Responsive Tabs Layout</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
+
+      header {
+        background-color: #4caf50;
+        color: white;
+        padding: 20px;
+        text-align: center;
+        font-size: 1.5rem;
+      }
+
+      section {
+        flex: 1;
+        padding: 20px;
+      }
+
+      .tabs-container {
+        display: grid;
+        grid-template-columns: 1fr; /* Keep tabs and content stacked */
+        gap: 20px;
+        max-width: 1200px;
+        margin: 0 auto; /* Center the container horizontally */
+      }
+
+      .tab-buttons {
+        display: flex;
+        gap: 10px;
+      }
+
+      .tab-buttons button {
+        padding: 10px 20px;
+        background-color: #f1f1f1;
+        border: 1px solid #ddd;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        flex: 1;
+      }
+
+      .tab-buttons button.active {
+        background-color: #4caf50;
+        color: white;
+      }
+
+      .tab-content {
+        display: none;
+        margin-top: 20px;
+      }
+
+      .tab-content.active {
+        display: block;
+      }
+
+      /* Grid layout for responsive boxes */
+      .boxes {
+        display: grid;
+        gap: 10px;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      }
+
+      .box {
+        height: 200px;
+        background-color: #f1f1f1;
+        border: 2px solid #ddd;
+        display: flex;
+        justify-content: center; /* Horizontally center content */
+        align-items: center; /* Vertically center content */
+        font-size: 1.2rem;
+      }
+
+      /* Responsive grid layout */
+      @media (min-width: 600px) {
+        .boxes {
+          grid-template-columns: repeat(
+            2,
+            1fr
+          ); /* Two columns for medium screens */
+        }
+      }
+
+      @media (min-width: 1024px) {
+        .boxes {
+          grid-template-columns: repeat(
+            2,
+            1fr
+          ); /* Three columns for larger screens */
+        }
+      }
+
+      /* Second tab: h1 and button */
+      .tab-2 h1 {
+        margin-bottom: 20px;
+      }
+
+      .tab-2 button {
+        padding: 10px 20px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      .tab-2 button:hover {
+        background-color: #45a049;
+      }
+
+      footer {
+        background-color: #333;
+        color: white;
+        padding: 10px;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <header>My Simple Layout</header>
+
+    <section>
+      <div class="tabs-container">
+        <div class="tab-buttons">
+          <button class="active" onclick="openTab('tab1')">Tab 1</button>
+          <button onclick="openTab('tab2')">Tab 2</button>
+        </div>
+
+        <div id="tab1" class="tab-content active">
+          <div class="boxes">
+            <div class="box">Box 1</div>
+            <div class="box">Box 2</div>
+            <div class="box">Box 3</div>
+            <div class="box">Box 4</div>
+            <div class="box">Box 5</div>
+          </div>
+        </div>
+
+        <div id="tab2" class="tab-content tab-2">
+          <h1>Welcome to Tab 2</h1>
+          <button>Click Me</button>
+        </div>
+      </div>
+    </section>
+
+    <footer>Footer content goes here</footer>
+
+    <script>
+      function openTab(tabId) {
+        // Remove active class from all tab buttons
+        const buttons = document.querySelectorAll('.tab-buttons button');
+        buttons.forEach(button => button.classList.remove('active'));
+
+        // Hide all tab contents
+        const tabs = document.querySelectorAll('.tab-content');
+        tabs.forEach(tab => tab.classList.remove('active'));
+
+        // Show the selected tab and mark the button as active
+        document.getElementById(tabId).classList.add('active');
+        document
+          .querySelector(`[onclick="openTab('${tabId}')"]`)
+          .classList.add('active');
+      }
+    </script>
+  </body>
+</html>
